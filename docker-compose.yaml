@@ -1,0 +1,67 @@
+---
+
+version: '3'
+services:
+  mailog:
+    build:
+      context: ./mailhog/ 
+      dockerfile: Dockerfile
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    restart: always
+    networks:
+      thenetwork:
+        ipv4_address: 172.20.0.2
+  storage:
+    build:
+      context: ./storage/
+      dockerfile: Dockerfile
+    image: storage/storage
+    container_name: storage
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./storage/txns.csv:/data/txns.csv
+    ports:
+      - "9090:80"
+    networks:
+      thenetwork:
+        ipv4_address: 172.20.0.3
+    restart: always
+  database:
+    image: mysql
+    container_name: database
+    restart: always
+    volumes:
+      - ./database:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: demo_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    networks:
+      thenetwork:
+        ipv4_address: 172.20.0.4 
+  function:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: function/function 
+    container_name: function 
+    restart: always
+    ports:
+      - "8080:80"
+    networks:
+      thenetwork:
+        ipv4_address: 172.20.0.5
+networks:
+  thenetwork:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16

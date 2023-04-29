@@ -1,0 +1,15 @@
+local.settings.json
+.gitignore
+.vscode/
+
+# Go code
+function/
+
+# Docker container dirs
+mailhog/
+storage/
+database/
+
+Makefile
+README.md
+docker-compose.yml
