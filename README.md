@@ -1,5 +1,19 @@
 # Stori
 
+---
+
+<p
+    align="center">
+    <img
+        src=".assets/demo.png"
+        alt="Demo 01 - localhost"
+        width="600"
+        height="400"
+    />
+</p>
+
+---
+
 ## How to execute
 
 To initialize the services, `function`, `storage`, `smtp`, execute the following command,
@@ -33,7 +47,7 @@ curl http://localhost:8080/api/processor
 ```
 
 To connect to the Database (`MySQL`) access the database container with demo user and password. The
-transsactions are stored after each time the CSV file is read. Notce that inserts are duplicates 
+transsactions are stored after each time the CSV file is read. Notce that inserts are duplicates
 since this demo is using the same `csv` file.
 
 ```sql
