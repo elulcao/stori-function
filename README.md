@@ -2,7 +2,7 @@
 
 ## How to execute
 
-To initialize the services, `function`, `storage`, `smtp`, execute the following `make` command,
+To initialize the services, `function`, `storage`, `smtp`, execute the following command,
 it will start the container for mentioned services within the same network.
 
 ```bash
@@ -18,7 +18,7 @@ curl http://localhost:9090/txns.csv
 ```
 
 `txns.csv` can be updated at anytime, to remove or add new data. Then simply start again the container
-with `make` commands. The container is respawned without affecting other containers.
+with `make` command. The container is respawned without affecting other containers.
 
 ```bash
 make storage
@@ -26,14 +26,15 @@ make storage
 
 In this demo, the function name is `processor` and the `Go` binary generated is called `processorHandler`.
 The `endpoint` (`http://localhost:8080/api/processor`) can be accessed via web browser or via `cURL`
-request.
+request; in both cases the summary report is generated.
 
 ```bash
 curl http://localhost:8080/api/processor
 ```
 
 To connect to the Database (`MySQL`) access the database container with demo user and password. The
-transsactions are stored after each time the CSV file is read.
+transsactions are stored after each time the CSV file is read. Notce that inserts are duplicates 
+since this demo is using the same `csv` file.
 
 ```sql
 $ docker exec -it database /bin/bash
